@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cryptographic-art-generator"
+version = "0.1.0"
+description = "Cryptographic Art Generator — deterministic art from hashes"
+authors = [{name="Your Name", email="you@example.com"}]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = ["pillow"]
