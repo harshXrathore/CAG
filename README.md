@@ -1,8 +1,8 @@
 # 🔐 CAG (Cryptographic Art Generator)
 
-Turn text, names, or file hashes into **deterministic abstract art** 🎨 using cryptographic algorithms.
-Each input creates a unique “fingerprint painting” — the same input will *always* generate the same artwork.
+The Cryptographic Art Generator takes any user input (like a name, email, password, file hash, or random string), applies cryptographic functions, and then transforms the cryptographic output into a unique abstract piece of digital art.The same input always generates the same art (deterministic, like a fingerprint).Different inputs produce completely different art.
 
+It doubles as both a fun visual hash tool and an artistic security concept.
 ---
 
 ## ✨ Features
@@ -21,8 +21,8 @@ Each input creates a unique “fingerprint painting” — the same input will *
 ### 1. Clone this repo
 
 ```bash
-git clone https://github.com/yourusername/cryptographic-art-generator.git
-cd cryptographic-art-generator
+git clone https://github.com/harshXrathore/CAG.git
+cd CAG
 ```
 
 ### 2. Create virtual environment
