@@ -1,2 +1,4 @@
 pillow
 pytest
+pyfiglet
+rich
