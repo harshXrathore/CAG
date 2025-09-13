@@ -1,4 +1,4 @@
-# 🔐 CAG (Cryptographic Art Generator)
+# 🔐 CryptoArt (Cryptographic Art Generator)
 
 The Cryptographic Art Generator takes any user input (like a name, email, password, file hash, or random string), applies cryptographic functions, and then transforms the cryptographic output into a unique abstract piece of digital art.The same input always generates the same art (deterministic, like a fingerprint).Different inputs produce completely different art.
 
@@ -21,8 +21,8 @@ It doubles as both a fun visual hash tool and an artistic security concept.
 ### 1. Clone this repo
 
 ```bash
-git clone https://github.com/harshXrathore/CAG.git
-cd CAG
+git clone https://github.com/harshXrathore/CryptoArt.git
+cd CryptoArt
 ```
 
 ### 2. Create virtual environment
