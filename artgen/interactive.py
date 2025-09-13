@@ -84,7 +84,7 @@ def main():
             console.print(f"[bold green]✨ Random art saved as {out_file}[/bold green]")
             open_image(out_file)
 
-          elif choice == 3:
+       elif choice == 3:
             filename = input("Enter PNG filename: ")
             if not os.path.exists(filename):
                 print("❌ File not found.")
