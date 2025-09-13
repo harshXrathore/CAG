@@ -3,6 +3,7 @@ from PIL import Image, ImageDraw
 import pyfiglet
 from rich.console import Console
 from rich.prompt import Prompt, IntPrompt
+from artgen.core import generate_art, save_art, extract_metadata
 
 console = Console()
 
@@ -83,7 +84,17 @@ def main():
             console.print(f"[bold green]✨ Random art saved as {out_file}[/bold green]")
             open_image(out_file)
 
-        elif choice == 3:
+          elif choice == 3:
+            filename = input("Enter PNG filename: ")
+            if not os.path.exists(filename):
+                print("❌ File not found.")
+                continue
+            meta = extract_metadata(filename)
+            print("📜 Metadata extracted:")
+            for k, v in meta.items():
+                print(f"   {k}: {v}")
+
+        elif choice == 4:
             console.print("[red]Exiting...[/red]")
             break
 
