@@ -1,41 +1,10 @@
-import hashlib, random, os, platform, subprocess
-from PIL import Image, ImageDraw
+import os, platform, subprocess, random
 import pyfiglet
 from rich.console import Console
 from rich.prompt import Prompt, IntPrompt
-from artgen.core import extract_metadata  # keep core functions separate
+from artgen.core import generate_art, save_art, extract_metadata
 
 console = Console()
-
-def text_to_hash(text: str, algo="sha256") -> str:
-    h = hashlib.new(algo)
-    h.update(text.encode("utf-8"))
-    return h.hexdigest()
-
-def generate_art(text: str, size: int = 512, algo="sha256") -> Image.Image:
-    hexhash = text_to_hash(text, algo)
-    seed = int(hexhash[:16], 16)
-    random.seed(seed)
-
-    img = Image.new("RGB", (size, size), (0, 0, 0))
-    draw = ImageDraw.Draw(img)
-
-    for _ in range(100):
-        x0, y0 = random.randint(0, size), random.randint(0, size)
-        x1, y1 = random.randint(0, size), random.randint(0, size)
-        x0, x1 = sorted([x0, x1])
-        y0, y1 = sorted([y0, y1])
-        color = (
-            random.randint(50, 255),
-            random.randint(50, 255),
-            random.randint(50, 255),
-        )
-        if random.random() < 0.5:
-            draw.ellipse([x0, y0, x1, y1], fill=color)
-        else:
-            draw.rectangle([x0, y0, x1, y1], fill=color)
-
-    return img
 
 def open_image(filepath: str):
     """Open an image file with the default system viewer."""
@@ -51,7 +20,7 @@ def open_image(filepath: str):
 
 def main():
     # Banner
-    banner = pyfiglet.figlet_format("CryptoArt", font="slant")
+    banner = pyfiglet.figlet_format("CryptoArt", font="larry3d")
     console.print(f"[bold cyan]{banner}[/bold cyan]")
     console.print("[bold yellow]Cryptographic Art Generator 🎨🔐[/bold yellow]\n")
     console.print("[green]Available algorithms: SHA-256, SHA-512, SHA-1[/green]\n")
@@ -63,40 +32,40 @@ def main():
         console.print("3) Extract metadata from existing art")
         console.print("4) Exit")
 
-        choice = Prompt.ask("\nEnter your choice", choices=["1", "2", "3", "4"])
+        choice = IntPrompt.ask("\nEnter your choice", choices=["1", "2", "3", "4"])
 
-        if choice == "1":
+        if choice == 1:
             text = Prompt.ask("Enter text or hash")
             algo = Prompt.ask("Choose algorithm", default="sha256")
             out_file = Prompt.ask("Output filename", default="art.png")
 
             img = generate_art(text, algo=algo)
-            img.save(out_file)
+            save_art(img, out_file, text, algo)
             console.print(f"[bold green]✅ Art saved as {out_file}[/bold green]")
             open_image(out_file)
 
-        elif choice == "2":
+        elif choice == 2:
             seed_text = str(random.randint(100000, 999999))
             algo = "sha256"
             out_file = "random_art.png"
 
             img = generate_art(seed_text, algo=algo)
-            img.save(out_file)
+            save_art(img, out_file, seed_text, algo)
             console.print(f"[bold green]✨ Random art saved as {out_file}[/bold green]")
             open_image(out_file)
 
-        elif choice == "3":
+        elif choice == 3:
             filename = Prompt.ask("Enter PNG filename")
             if not os.path.exists(filename):
                 console.print("[red]❌ File not found.[/red]")
                 continue
             meta = extract_metadata(filename)
-            console.print("[yellow]📜 Metadata extracted:[/yellow]")
+            console.print("📜 Metadata extracted:")
             for k, v in meta.items():
                 console.print(f"   [cyan]{k}[/cyan]: {v}")
 
-        elif choice == "4":
-            console.print("[red]Exiting... Goodbye! 👋[/red]")
+        elif choice == 4:
+            console.print("[red]Exiting...[/red]")
             break
 
 if __name__ == "__main__":
