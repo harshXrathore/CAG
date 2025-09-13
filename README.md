@@ -36,9 +36,6 @@ source .venv/bin/activate
 
 ```bash
 pip install --upgrade pip
-pip install pillow
-pip install pyfiglet
-pip install rich
 pip install -r requirements.txt
 ```
 
