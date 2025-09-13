@@ -7,12 +7,12 @@ It doubles as both a fun visual hash tool and an artistic security concept.
 
 ## ✨ Features
 
-* 🔑 Deterministic: same input → same output
-* 🎨 Multiple shape types (ellipses, rectangles, polygons, lines, arcs)
-* 🖼 Save generated artwork as PNG
-* 🌐 Web demo (p5.js + Web Crypto API)
-* 🐍 Python CLI for local use
-* 🔒 Cryptography-inspired — makes a great hash visualizer for security enthusiasts
+* 🔑 Hash-based art generation (SHA-256, SHA-512, SHA-1)
+* 🎲 Random seed mode for unique abstract art
+* 🖼️ Automatic image preview after generation
+* 📜 Metadata embedding: Generated images store(Original input text/hash + Algorithm used)
+* 🔍 Metadata extraction: Retrieve hidden info from any generated PNG
+* 🎨 Interactive CLI with ASCII banner (figlet larry3d) + Rich UI
 
 ---
 
@@ -55,13 +55,15 @@ python -m artgen.interactive
 You’ll see:
 
 ```
- python -m artgen.interactive
-   ______                 __        ___         __ 
-  / ____/______  ______  / /_____  /   |  _____/ /_
- / /   / ___/ / / / __ \/ __/ __ \/ /| | / ___/ __/
-/ /___/ /  / /_/ / /_/ / /_/ /_/ / ___ |/ /  / /_  
-\____/_/   \__, / .___/\__/\____/_/  |_/_/   \__/  
-          /____/_/                                 
+ ____                           __           ______         __      
+/\  _`\                        /\ \__       /\  _  \       /\ \__   
+\ \ \/\_\  _ __   __  __  _____\ \ ,_\   ___\ \ \L\ \  _ __\ \ ,_\  
+ \ \ \/_/_/\`'__\/\ \/\ \/\ '__`\ \ \/  / __`\ \  __ \/\`'__\ \ \/  
+  \ \ \L\ \ \ \/ \ \ \_\ \ \ \L\ \ \ \_/\ \L\ \ \ \/\ \ \ \/ \ \ \_ 
+   \ \____/\ \_\  \/`____ \ \ ,__/\ \__\ \____/\ \_\ \_\ \_\  \ \__\
+    \/___/  \/_/   `/___/> \ \ \/  \/__/\/___/  \/_/\/_/\/_/   \/__/
+                      /\___/\ \_\                                   
+                      \/__/  \/_/                                   
 
 Cryptographic Art Generator 🎨🔐
 
@@ -71,9 +73,10 @@ Available algorithms: SHA-256, SHA-512, SHA-1
 Choose an option:
 1) Generate art from text
 2) Generate art from random seed
-3) Exit
+3) Extract metadata from existing art
+4) Exit
 
-Enter your choice [1/2/3]:
+Enter your choice [1/2/3/4]: 
 ```
 
 ### CLI (Python)
