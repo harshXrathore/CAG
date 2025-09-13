@@ -43,6 +43,35 @@ pip install -r requirements.txt
 
 ## 🚀 Usage
 
+
+### **Interactive Mode**
+
+Launch the interactive CLI with the **Larry 3D banner**:
+
+```bash
+python -m artgen.interactive
+```
+
+You’ll see:
+
+```
+  ██████╗  █████╗   ██████╗ 
+ ██╔════╝ ██╔══██╗ ██╔════╝ 
+ ██║      ███████║ ██║  ███╗
+ ██║      ██╔══██║ ██║   ██║
+ ╚██████╗ ██║  ██║ ╚██████╔╝
+  ╚═════╝ ╚═╝  ╚═╝  ╚═════╝ 
+
+Cryptographic Art Generator (CAG) 🎨🔐
+-------------------------------------
+Available algorithms: SHA-256, SHA-512, SHA-1
+
+Choose an option:
+1) Generate art from text
+2) Generate art from random seed
+3) Exit
+```
+
 ### CLI (Python)
 
 Generate artwork from text:
