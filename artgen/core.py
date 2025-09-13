@@ -1,5 +1,6 @@
 import hashlib, random, math
 from PIL import Image, ImageDraw
+from PIL import PngImagePlugin, Image
 
 def text_to_hash(text: str, algo="sha256") -> str:
     h = hashlib.new(algo)
@@ -17,6 +18,20 @@ def generate_art(text: str, size: int = 512, algo="sha256") -> Image.Image:
 
     center = size // 2
     num_shapes = 80
+
+def save_art(img: Image.Image, filename: str, text: str, algo="sha256"):
+    metadata = PngImagePlugin.PngInfo()
+    metadata.add_text("InputText", text)
+    metadata.add_text("Algorithm", algo)
+    img.save(filename, "PNG", pnginfo=metadata)
+
+def extract_metadata(filename: str):
+    img = Image.open(filename)
+    info = img.info
+    return {
+        "InputText": info.get("InputText", None),
+        "Algorithm": info.get("Algorithm", None)
+    }
 
     for _ in range(num_shapes):
         # Position relative to center
