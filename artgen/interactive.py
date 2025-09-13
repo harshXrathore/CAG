@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw
 import pyfiglet
 from rich.console import Console
 from rich.prompt import Prompt, IntPrompt
-from artgen.core import generate_art, save_art, extract_metadata
+from artgen.core import extract_metadata  # keep core functions separate
 
 console = Console()
 
@@ -23,8 +23,8 @@ def generate_art(text: str, size: int = 512, algo="sha256") -> Image.Image:
     for _ in range(100):
         x0, y0 = random.randint(0, size), random.randint(0, size)
         x1, y1 = random.randint(0, size), random.randint(0, size)
-        x0, x1 = sorted([x0, x1])  # ensures x1 >= x0
-        y0, y1 = sorted([y0, y1])  # ensures y1 >= y0
+        x0, x1 = sorted([x0, x1])
+        y0, y1 = sorted([y0, y1])
         color = (
             random.randint(50, 255),
             random.randint(50, 255),
@@ -60,11 +60,12 @@ def main():
         console.print("\n[bold]Choose an option:[/bold]")
         console.print("1) Generate art from text")
         console.print("2) Generate art from random seed")
-        console.print("3) Exit")
+        console.print("3) Extract metadata from existing art")
+        console.print("4) Exit")
 
-        choice = IntPrompt.ask("\nEnter your choice", choices=["1", "2", "3"])
+        choice = Prompt.ask("\nEnter your choice", choices=["1", "2", "3", "4"])
 
-        if choice == 1:
+        if choice == "1":
             text = Prompt.ask("Enter text or hash")
             algo = Prompt.ask("Choose algorithm", default="sha256")
             out_file = Prompt.ask("Output filename", default="art.png")
@@ -74,7 +75,7 @@ def main():
             console.print(f"[bold green]✅ Art saved as {out_file}[/bold green]")
             open_image(out_file)
 
-        elif choice == 2:
+        elif choice == "2":
             seed_text = str(random.randint(100000, 999999))
             algo = "sha256"
             out_file = "random_art.png"
@@ -84,18 +85,18 @@ def main():
             console.print(f"[bold green]✨ Random art saved as {out_file}[/bold green]")
             open_image(out_file)
 
-       elif choice == 3:
-            filename = input("Enter PNG filename: ")
+        elif choice == "3":
+            filename = Prompt.ask("Enter PNG filename")
             if not os.path.exists(filename):
-                print("❌ File not found.")
+                console.print("[red]❌ File not found.[/red]")
                 continue
             meta = extract_metadata(filename)
-            print("📜 Metadata extracted:")
+            console.print("[yellow]📜 Metadata extracted:[/yellow]")
             for k, v in meta.items():
-                print(f"   {k}: {v}")
+                console.print(f"   [cyan]{k}[/cyan]: {v}")
 
-        elif choice == 4:
-            console.print("[red]Exiting...[/red]")
+        elif choice == "4":
+            console.print("[red]Exiting... Goodbye! 👋[/red]")
             break
 
 if __name__ == "__main__":
