@@ -137,8 +137,7 @@ cryptographic-art-generator/
 │   ├── __init__.py
 │   ├── core.py      # Core art generation logic
 │   ├── cli.py
-│   ├── intractive.py 
-       # CLI interface
+│   ├── intractive.py  # intractive CLI interface
 │── tests/           # Unit tests
 │── web/             # Web demo (HTML + JS)
 │── requirements.txt
